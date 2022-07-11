@@ -1,21 +1,18 @@
-/**
- * Da errores debido a múltiples scanner
- */
-
 import java.util.Arrays;
-import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 public class Ej12 {
 
 	public static void main(String[] args) {
-		int tamano = 0;
+		int tamano;
 		int min = 1;
 		int max = 300;
 		int digito;
 		int[] array1;
 		String array2;
 		
-		pedir_tamano_de_array(tamano);
+		tamano = Integer.parseInt(JOptionPane.showInputDialog("Escribir el tamaño del array:"));
 		
 		array1 = new int[tamano];
 		rellenar_array_aleatoriamente(array1, min, max);
@@ -27,36 +24,26 @@ public class Ej12 {
 		System.out.println("La primera array es:\n" + Arrays.toString(array1));
 		System.out.println("La array final es:\n" + array2);
 	}
-
-	public static void pedir_tamano_de_array(int tamano) {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Escribir el tamaño del array:");
-		tamano = sc.nextInt();
-		sc.close();
-	}
 	
 	public static void rellenar_array_aleatoriamente(int[] array, int min, int max) {
 		for(int i = 0; i < array.length; i++)
 			array[i] = (int)(Math.random() * (max - min)) + min;
 	}
 	
-	//Valida que el input se pueda convertir a Integer. Si se pasa más de un dígito coge el último.
+	// Valida que el input se pueda convertir a Integer. Si se pasa más de un dígito coge el último.
 	public static int validar_digito() {
-		Scanner sc = new Scanner(System.in);
 		int digito = -1;
 		String digito_raw;
 
 		while(digito == -1) {
-			System.out.println("Escribir un dígito entre 0 y 9:");
-			digito_raw = sc.nextLine();
+			digito_raw = JOptionPane.showInputDialog("Escribir un dígito entre 0 y 9:");
+			digito_raw = digito_raw.substring(digito_raw.length() - 1); 
 			try {
-				digito = Integer.valueOf(digito_raw.charAt(digito_raw.length() - 1));
+				digito = Integer.valueOf(digito_raw);
 			} catch(NumberFormatException e) {
 				System.out.println("No es un dígito válido.");
 			}
 		}
-
-		sc.close();
 
 		return digito;
 	}
